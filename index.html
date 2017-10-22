@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"> 
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var myMap, 
+            myPlacemark;
+
+        function init(){ 
+            myMap = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                zoom: 7,
+                controls: ['zoomControl', 'searchControl', 'typeSelector', 'routeButtonControl']
+            }); 
+        }
+
+
+        function setLabel1(){
+        	alert("btn1_cl");
+        	myMap.events.add("click", function (e) {
+        		alert("add");
+		        var coords = e.get('coords');
+		        // if (myPlacemark) {
+		        //     myPlacemark.geometry.setCoordinates(coords);
+		        // }else {
+		            myPlacemark = createPlacemark(coords);
+		            myMap.geoObjects.add(myPlacemark);
+		        // }
+
+			});
+
+			function createPlacemark(coords) {
+     				return new ymaps.Placemark(coords, {
+          			iconCaption: 'newPlacemark'
+       			}, {
+            		preset: 'islands#icon',
+            		iconColor: '#0095b6',
+            		draggable: true
+        		});
+    		}
+    		alert("exit");
+    		return;
+        }
+
+        function setLabel2(){
+        	 myMap.geoObjects
+       		.add(new ymaps.Placemark([55.833436, 37.715175], {
+            balloonContent: '<strong>Label</strong>'
+      		 }, {
+            preset: 'islands#dotIcon',
+            iconColor: '#735184'
+      		}));
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="map" style="width: 320px; height: 180px"></div>
+</body>
+
+</html>
